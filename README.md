@@ -15,6 +15,5 @@ I build useful software from first principles—across AI workflows, developer t
 ## Notes
 
 - [Engineering Knowledge Base](https://kelvinlee97.github.io/engineering/)
-- [Personal site](https://kelvin.ink)
 
 I care about understanding the problem, shipping the smallest useful system, and documenting what I learn.
