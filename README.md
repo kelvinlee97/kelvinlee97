@@ -1,29 +1,16 @@
-# Hi, I'm Kelvin Lee
+# Kelvin Lee
 
-I turn ambiguous problems into focused, useful software—from AI-assisted workflows and developer tools to local-first desktop apps and practical knowledge systems.
+I build practical software and knowledge systems around AI, developer tooling, and everyday problems.
 
-## What I'm building
+### Projects
 
-| Project | What it does |
-| --- | --- |
-| [Finance](https://github.com/kelvinlee97/finance) | A bilingual knowledge base that turns traceable sources on economics, companies, and markets into structured, reusable research notes. |
-| [Painpoint Atlas](https://github.com/kelvinlee97/painpoint-atlas) | Finds recurring customer pain points and testable business opportunities in low-rated App Store and Google Play reviews. |
-| [Perch](https://github.com/kelvinlee97/Perch) | A calm, local-first macOS companion that keeps one task in focus at a time. |
+- [Finance](https://github.com/kelvinlee97/finance) — a bilingual knowledge base for economics, companies, markets, and investing research.
+- [Painpoint Atlas](https://github.com/kelvinlee97/painpoint-atlas) — turns low-rated app reviews into evidence-backed pain points and testable business opportunities.
+- [Perch](https://github.com/kelvinlee97/Perch) — a local-first macOS companion that keeps one task in focus at a time.
+- [ClaimFlow](https://github.com/kelvinlee97/ClaimFlow) — manages promotional claims through WhatsApp, with AI-assisted receipt review.
 
-## Knowledge and systems
+### Notes
 
-- [Engineering Knowledge Base](https://github.com/kelvinlee97/engineering) — bilingual notes, runbooks, and reusable workflows for troubleshooting, cloud infrastructure, developer tooling, and operations.
-- [Engineering Notes](https://kelvinlee97.github.io/engineering/) — the published, searchable version of the knowledge base.
+- [Engineering](https://github.com/kelvinlee97/engineering) — bilingual notes and runbooks on troubleshooting, cloud infrastructure, developer tools, and operations. [Read online](https://kelvinlee97.github.io/engineering/).
 
-## Selected work
-
-- [ClaimFlow](https://github.com/kelvinlee97/ClaimFlow) — WhatsApp-powered promotion claim management with AI-assisted receipt review.
-
-## How I work
-
-- Start with the real problem and work from first principles.
-- Ship the smallest system that creates meaningful value.
-- Prefer clear, maintainable tools over unnecessary complexity.
-- Turn what I learn into documentation others can reuse.
-
-I'm especially interested in applied AI, local-first software, developer experience, and systems that make complex work easier to understand.
+I like working from first principles, keeping systems small, and documenting what I learn.
