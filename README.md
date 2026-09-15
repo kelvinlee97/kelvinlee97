@@ -4,7 +4,7 @@ I build practical software and knowledge systems around AI, developer tooling, a
 
 ### Tools
 
-- [Codex Usage](https://github.com/kelvinlee97/codex-usage-menubar) — macOS menu-bar app for Codex CLI's 5-hour and 7-day usage windows, reset times, and credit balance. *Working: live polling, reset countdowns, launch at login.*
+- [Codex Usage Menubar](https://github.com/kelvinlee97/codex-usage-menubar) — macOS menu-bar app for Codex CLI's 5-hour and 7-day usage windows, reset times, and credit balance. *Working: live polling, reset countdowns, launch at login. Universal build (Apple Silicon and Intel); install from source for now — a signed, notarized download is pending.*
 - [Claude Usage Menubar](https://github.com/kelvinlee97/claude-usage-menubar) — the same glance for Claude: 5-hour and 7-day limits, read from the token Claude Code already stored locally, with a cached fallback when the API is unreachable. *Working: live polling, manual refresh, launch at login.*
 - [Web2MD](https://github.com/kelvinlee97/web2md) — Chrome extension that converts an article to Markdown locally, then reports what didn't make it through. *Working: article and full-page modes, content check, copy or download. Installs unpacked; not yet on the Web Store.*
 
