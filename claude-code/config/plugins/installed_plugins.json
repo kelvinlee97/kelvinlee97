@@ -68,15 +68,6 @@
         "gitCommitSha": "959a8e9f1edc3adbe2f7e3054bb6fbefa6696260"
       }
     ],
-    "token-weather@claude-code-playground-mods": [
-      {
-        "scope": "user",
-        "installPath": "/Users/kelvin/.claude/plugins/cache/claude-code-playground-mods/token-weather/0.1.0",
-        "version": "0.1.0",
-        "installedAt": "2026-10-03T13:57:53.360Z",
-        "lastUpdated": "2026-10-03T13:57:53.360Z"
-      }
-    ],
     "blast-radius@claude-code-playground-mods": [
       {
         "scope": "user",
