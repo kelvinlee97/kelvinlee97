@@ -76,15 +76,21 @@ json.dump(out, open(sys.argv[2], "w"), indent=2)
 open(sys.argv[2], "a").write("\n")
 PY
 
-# settings*.json: redact env values whose name looks like a credential
+# settings*.json: redact env values whose name looks like a credential, and
+# permission rules that may quote a credential (approved commands collect in allow/ask).
 python3 - "$C"/settings*.json <<'PY'
 import json, re, sys
-pat = re.compile(r"KEY|TOKEN|SECRET|PASSWORD|CREDENTIAL", re.I)
+pat = re.compile(r"KEY|TOKEN|SECRET|PASSWORD|CREDENTIAL|AUTH|BEARER", re.I)
 for f in sys.argv[1:]:
     d = json.load(open(f))
-    env = d.get("env", {})
-    if any(pat.search(k) for k in env):
-        d["env"] = {k: ("<REDACTED>" if pat.search(k) else v) for k, v in env.items()}
+    before = json.dumps(d)
+    if d.get("env"):
+        d["env"] = {k: ("<REDACTED>" if pat.search(k) else v) for k, v in d["env"].items()}
+    for k in ("allow", "ask"):
+        rules = d.get("permissions", {}).get(k)
+        if rules:
+            d["permissions"][k] = ["<REDACTED rule>" if pat.search(r) else r for r in rules]
+    if json.dumps(d) != before:
         json.dump(d, open(f, "w"), indent=2)
         open(f, "a").write("\n")
 PY
@@ -142,14 +148,20 @@ save("agents-skill-sources.json", {n: {"source": s.get("source"), "skillPath": s
 
 # 4. VS Code: Claude Code extension settings
 vs = load(f"{home}/Library/Application Support/Code/User/settings.json") or {}
-save("vscode-settings.json", {k: v for k, v in vs.items() if k.startswith("claudeCode.") or "Claude" in k})
+save("vscode-settings.json", {k: v for k, v in vs.items()
+                              if (k.startswith("claudeCode.") or k == "chat.useClaudeHooks")
+                              and isinstance(v, (bool, int, float, str))})
 
-# 5. Claude desktop app: scalar preferences only (no IDs, no nested account maps)
+# 5. Claude desktop app: scalar preferences only. Keys that hold IDs, names,
+#    or free text (device name, origins, paths) are skipped.
 dp = (load(f"{home}/Library/Application Support/Claude/claude_desktop_config.json") or {}).get("preferences", {})
+SKIP = ("Id", "Name", "Path", "Origin", "Url", "Device")
 save("desktop-preferences.json", {k: v for k, v in sorted(dp.items())
-                                  if isinstance(v, (bool, int, float, str)) and "Id" not in k})
+                                  if isinstance(v, (bool, int, float)) and not any(s in k for s in SKIP)})
 
-# 6. Project settings in folders that are not git repos (repo settings stay in their repos)
+# 6. Project settings in folders that are not git repos (repo settings stay in their repos).
+#    Only display keys are kept: env, hooks, and permission rules can hold credentials.
+SAFE = ("outputStyle", "skillOverrides", "enabledPlugins", "model", "theme")
 proj = {}
 for p in cj.get("projects", {}):
     if p in (home, f"{home}/.claude"):  # user settings are already copied above
@@ -157,7 +169,9 @@ for p in cj.get("projects", {}):
     for f in glob.glob(f"{glob.escape(p)}/.claude/settings*.json"):
         inside_git = subprocess.run(["git", "-C", p, "rev-parse"], capture_output=True).returncode == 0
         if not inside_git:
-            proj[f.replace(home, "~", 1)] = load(f)
+            kept = {k: v for k, v in (load(f) or {}).items() if k in SAFE}
+            if kept:
+                proj[f.replace(home, "~", 1)] = kept
 save("project-settings.json", proj)
 PY
 
