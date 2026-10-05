@@ -18,7 +18,37 @@ claude-code/
     ├── output-styles/          # Visual Bilingual, Bilingual
     ├── skills/                 # user skills
     ├── mods/token-weather/     # local plugin: context and rate-limit band
-    └── plugins/                # installed plugins and marketplaces (reference)
+    ├── plugins/                # installed plugins and marketplaces (reference)
+    └── external/               # whitelist extracts of settings outside ~/.claude
+        ├── claude-json-prefs.json      # ~/.claude.json prefs + per-project MCP on/off
+        ├── claude-ai-synced.json       # account skills, plugins, connectors (names)
+        ├── agents-skill-sources.json   # skills CLI sources (~/.agents)
+        ├── vscode-settings.json        # claudeCode.* VS Code settings
+        ├── desktop-preferences.json    # Claude desktop app preferences
+        └── project-settings.json       # .claude/settings in non-git folders
+```
+
+## Setup map
+
+```mermaid
+flowchart TB
+  subgraph Local["Local machine"]
+    CM[CLAUDE.md] --> CC[Claude Code]
+    ST[settings.json + local] --> CC
+    OS[output style: Visual Bilingual] --> CC
+    SK[user skills] --> CC
+    MD[mod: token-weather] --> CC
+    PL[plugins: claude-plugins-official, playground mods] --> CC
+    MCP[gh-mcp via gh keyring] --> CC
+    SL[statusline-command.sh] --> CC
+  end
+  subgraph Account["claude.ai account (syncs by itself)"]
+    AS[skills: docx, pptx, pdf, ...] --> CC
+    AP[plugins: engineering, design, ...] --> CC
+    CN[connectors: Vercel, Supabase, Gmail, ...] --> CC
+  end
+  CC --> VS[VS Code extension]
+  CC --> DA[Claude desktop app]
 ```
 
 ## Workflow
@@ -50,6 +80,30 @@ git clone https://github.com/kelvinlee97/kelvinlee97 ~/code/kelvinlee97
 
 `restore.sh` moves each existing target to `<target>.bak-<timestamp>` before it copies the new file. It then prints the manual steps for plugins and MCP servers.
 
+## Shell setup
+
+Add these lines to `~/.zshrc`. Both read secrets at shell start, so no token is stored on disk.
+
+```bash
+# GitHub MCP server (github plugin) reads this header var.
+if [ -z "${GITHUB_PERSONAL_ACCESS_TOKEN:-}" ] && command -v gh >/dev/null 2>&1; then
+  export GITHUB_PERSONAL_ACCESS_TOKEN="$(gh auth token 2>/dev/null)"
+fi
+
+# weread-skills API key from the macOS keychain
+WEREAD_API_KEY="$(security find-generic-password -a "$USER" -s weread -w 2>/dev/null)"
+```
+
+## Dependencies
+
+| Tool | Used by |
+|---|---|
+| `gh` (signed in) | `github-mcp-headers.sh`, shell setup, `ci-automerge` skill |
+| `jq` | `statusline-command.sh` |
+| `python3`, `rsync` | `sync.sh`, `restore.sh` |
+| `node` / `npx` | `skills` CLI |
+| Ghostty | `deepLinkTerminal` preference |
+
 ## Not in this repo
 
 This repo is public, so these items are not copied:
@@ -62,7 +116,9 @@ This repo is public, so these items are not copied:
 | Plugin cache and marketplaces | `/plugin install` downloads them again |
 | `blast-radius` plugin | third-party, from `anthropics/claude-code-playground` |
 | Transcripts, `history.jsonl`, `security/`, `telemetry/` | private runtime state |
-| Full `~/.claude.json` | account and OAuth state |
+| Full `~/.claude.json` | account and OAuth state; only a whitelist goes to `external/` |
+| Project `CLAUDE.md` and `.claude/` in git repos | each repo already tracks its own files |
+| Cloud routines | all current routines are one-time PR check-ins that already ran |
 
 ## Notes
 

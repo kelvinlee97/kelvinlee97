@@ -50,4 +50,27 @@ cat <<EOF
 
 3. Absolute paths: settings.json and mcp-servers.json use /Users/kelvin/...
    Edit them if your home directory differs.
+
+4. Skills from the skills CLI (config/external/agents-skill-sources.json):
+EOF
+python3 - "$C/external/agents-skill-sources.json" <<'PY'
+import json, sys
+try:
+    for name, s in json.load(open(sys.argv[1])).items():
+        print(f"   npx skills add {s['source']}    # {name}")
+except OSError:
+    pass
+PY
+cat <<EOF
+   Then link weread-skills: ln -s ~/.agents/skills/weread-skills ~/.claude/skills/
+
+5. Sign in to claude.ai. Account skills, plugins, and connectors sync by
+   themselves. Compare them with config/external/claude-ai-synced.json.
+
+6. Apply by hand (other apps own these files):
+   - config/external/claude-json-prefs.json  -> ~/.claude.json (or /config)
+   - config/external/vscode-settings.json    -> VS Code user settings.json
+   - config/external/desktop-preferences.json -> Claude desktop app settings
+   - config/external/project-settings.json   -> each listed .claude/ folder
+   - Shell: see "Shell setup" in claude-code/README.md
 EOF

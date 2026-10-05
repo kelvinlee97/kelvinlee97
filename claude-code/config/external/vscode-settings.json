@@ -1,0 +1,10 @@
+{
+  "claudeCode.hideOnboarding": true,
+  "claudeCode.useTerminal": true,
+  "claudeCode.focusView": true,
+  "claudeCode.allowDangerouslySkipPermissions": true,
+  "claudeCode.archiveInactiveSessions": 7,
+  "claudeCode.enableNewConversationShortcut": true,
+  "chat.useClaudeHooks": true,
+  "claudeCode.preferredLocation": "panel"
+}

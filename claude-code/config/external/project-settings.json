@@ -1,0 +1,7 @@
+{
+  "~/Documents/Documents - Kelvin’s MacBook Air/Github/.claude/settings.local.json": {
+    "skillOverrides": {
+      "anthropic-skills:canvas-design": "off"
+    }
+  }
+}
