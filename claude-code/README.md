@@ -15,7 +15,7 @@ claude-code/
     ├── statusline-command.sh   # status line script
     ├── github-mcp-headers.sh   # gh-mcp auth headers from the gh keyring
     ├── mcp-servers.json        # mcpServers from ~/.claude.json (env/headers redacted)
-    ├── output-styles/          # Visual Bilingual, Bilingual
+    ├── output-styles/          # Visual Bilingual
     ├── skills/                 # user skills
     ├── mods/token-weather/     # local plugin: context and rate-limit band
     ├── plugins/                # installed plugins and marketplaces (reference)
