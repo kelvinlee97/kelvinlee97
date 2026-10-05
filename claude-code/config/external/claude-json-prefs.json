@@ -1,0 +1,53 @@
+{
+  "prefs": {
+    "autoUpdates": false,
+    "autoConnectIde": true,
+    "copyOnSelect": true,
+    "deepLinkTerminal": "Ghostty",
+    "claudeInChromeDefaultEnabled": true,
+    "workflowSizeGuideline": "small",
+    "defaultToAgentsView": false,
+    "diffSidebarOpen": false,
+    "briefTranscript": true,
+    "favoritePlugins": [
+      "posthog@claude-plugins-official"
+    ],
+    "installMethod": "native"
+  },
+  "projectMcp": {
+    "/Users/kelvin": {
+      "enabledMcpServers": [
+        "computer-use"
+      ],
+      "disabledMcpServers": [
+        "claude.ai Context7"
+      ]
+    },
+    "/Users/kelvin/Documents/Github": {
+      "disabledMcpServers": [
+        "plugin:posthog:posthog"
+      ]
+    },
+    "/Users/kelvin/Documents": {
+      "disabledMcpServers": [
+        "plugin:engineering:slack",
+        "plugin:engineering:asana",
+        "plugin:engineering:atlassian",
+        "plugin:engineering:notion",
+        "plugin:engineering:datadog"
+      ]
+    },
+    "/Users/kelvin/Documents/Github/engineering": {
+      "disabledMcpServers": [
+        "plugin:sourcegraph:sourcegraph",
+        "plugin:desktop-commander:desktop-commander",
+        "plugin:browser-use:browser-use"
+      ]
+    },
+    "/Users/kelvin/.claude": {
+      "enabledMcpServers": [
+        "computer-use"
+      ]
+    }
+  }
+}

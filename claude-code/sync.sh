@@ -89,6 +89,78 @@ for f in sys.argv[1:]:
         open(f, "a").write("\n")
 PY
 
+# Settings that live outside ~/.claude. Each file is a whitelist extract,
+# so account IDs, OAuth state, and caches are never copied.
+mkdir -p "$C/external"
+python3 - "$C/external" <<'PY'
+import json, os, glob, subprocess, sys
+out_dir = sys.argv[1]
+home = os.path.expanduser("~")
+def load(path):
+    try:
+        with open(path) as f:
+            return json.load(f)
+    except (OSError, ValueError):
+        return None
+def save(name, data):
+    if data:
+        with open(os.path.join(out_dir, name), "w") as f:
+            json.dump(data, f, indent=2, ensure_ascii=False)
+            f.write("\n")
+
+# 1. ~/.claude.json: user preferences and per-project MCP on/off lists
+cj = load(f"{home}/.claude.json") or {}
+PREFS = ["autoUpdates", "autoConnectIde", "copyOnSelect", "deepLinkTerminal",
+         "claudeInChromeDefaultEnabled", "workflowSizeGuideline", "defaultToAgentsView",
+         "diffSidebarOpen", "briefTranscript", "favoritePlugins", "installMethod"]
+MCP_KEYS = ["enabledMcpServers", "disabledMcpServers", "enabledMcpjsonServers", "disabledMcpjsonServers"]
+save("claude-json-prefs.json", {
+    "prefs": {k: cj[k] for k in PREFS if k in cj},
+    "projectMcp": {p: {k: v[k] for k in MCP_KEYS if v.get(k)}
+                   for p, v in cj.get("projects", {}).items() if any(v.get(k) for k in MCP_KEYS)},
+})
+
+# 2. Account-synced items (claude.ai): names only, so a new machine can be checked
+synced = {"skills": [], "plugins": [], "connectors": sorted(cj.get("claudeAiMcpEverConnected", []))}
+for m in glob.glob(f"{home}/.claude/skills/synced/*/manifest.json"):
+    synced["skills"] += sorted(s["name"] for s in load(m).get("skills", []))
+for m in glob.glob(f"{home}/.claude/plugins/synced/*/manifest.json"):
+    base = os.path.dirname(m)
+    for p in load(m).get("plugins", []):
+        name = p["name"]
+        pj = glob.glob(f"{base}/{name}/**/.claude-plugin/plugin.json", recursive=True)
+        if pj:
+            name = load(pj[0]).get("name", name)
+        synced["plugins"].append(f"{name}@{p.get('marketplaceName', '')}")
+synced["plugins"].sort()
+save("claude-ai-synced.json", synced)
+
+# 3. Skills installed with the `skills` CLI (~/.agents): sources only
+lock = load(f"{home}/.agents/.skill-lock.json") or {}
+save("agents-skill-sources.json", {n: {"source": s.get("source"), "skillPath": s.get("skillPath")}
+                                   for n, s in lock.get("skills", {}).items()})
+
+# 4. VS Code: Claude Code extension settings
+vs = load(f"{home}/Library/Application Support/Code/User/settings.json") or {}
+save("vscode-settings.json", {k: v for k, v in vs.items() if k.startswith("claudeCode.") or "Claude" in k})
+
+# 5. Claude desktop app: scalar preferences only (no IDs, no nested account maps)
+dp = (load(f"{home}/Library/Application Support/Claude/claude_desktop_config.json") or {}).get("preferences", {})
+save("desktop-preferences.json", {k: v for k, v in sorted(dp.items())
+                                  if isinstance(v, (bool, int, float, str)) and "Id" not in k})
+
+# 6. Project settings in folders that are not git repos (repo settings stay in their repos)
+proj = {}
+for p in cj.get("projects", {}):
+    if p in (home, f"{home}/.claude"):  # user settings are already copied above
+        continue
+    for f in glob.glob(f"{glob.escape(p)}/.claude/settings*.json"):
+        inside_git = subprocess.run(["git", "-C", p, "rev-parse"], capture_output=True).returncode == 0
+        if not inside_git:
+            proj[f.replace(home, "~", 1)] = load(f)
+save("project-settings.json", proj)
+PY
+
 find "$C" -name .DS_Store -delete
 
 # Secret scan: stop if anything looks like a credential

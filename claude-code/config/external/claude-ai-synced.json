@@ -1,0 +1,41 @@
+{
+  "skills": [
+    "brand-guidelines",
+    "canvas-design",
+    "doc-coauthoring",
+    "docs",
+    "docx",
+    "google-workspace",
+    "import-memory",
+    "internal-comms",
+    "learn",
+    "mcp-builder",
+    "morning",
+    "pdf",
+    "pptx",
+    "skill-creator",
+    "theme-factory",
+    "web-artifacts-builder",
+    "xlsx"
+  ],
+  "plugins": [
+    "cowork-plugin-management@knowledge-work-plugins",
+    "design@knowledge-work-plugins",
+    "engineering@knowledge-work-plugins",
+    "github-cli-health-check@anthropic-plugin-directory",
+    "github@anthropic-plugin-directory",
+    "operations@knowledge-work-plugins",
+    "pdf-viewer@knowledge-work-plugins",
+    "product-management@knowledge-work-plugins"
+  ],
+  "connectors": [
+    "claude.ai Claude Docs",
+    "claude.ai Context7",
+    "claude.ai Gmail",
+    "claude.ai Google Sheets",
+    "claude.ai Microsoft Learn",
+    "claude.ai Stripe",
+    "claude.ai Supabase",
+    "claude.ai Vercel"
+  ]
+}

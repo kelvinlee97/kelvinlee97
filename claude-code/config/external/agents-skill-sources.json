@@ -1,0 +1,10 @@
+{
+  "weread-skills": {
+    "source": "Tencent/WeChatReading",
+    "skillPath": "skills/SKILL.md"
+  },
+  "find-skills": {
+    "source": "vercel-labs/skills",
+    "skillPath": "skills/find-skills/SKILL.md"
+  }
+}
