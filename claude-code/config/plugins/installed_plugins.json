@@ -1,0 +1,90 @@
+{
+  "version": 2,
+  "plugins": {
+    "playwright@claude-plugins-official": [
+      {
+        "scope": "user",
+        "installPath": "/Users/kelvin/.claude/plugins/cache/claude-plugins-official/playwright/d182ca456ca0",
+        "version": "d182ca456ca0",
+        "installedAt": "2026-09-14T14:38:31.405Z",
+        "lastUpdated": "2026-10-03T04:44:47.436Z",
+        "gitCommitSha": "d182ca456ca09d31d139f7d3818d1d333b103cce"
+      }
+    ],
+    "claude-md-management@claude-plugins-official": [
+      {
+        "scope": "user",
+        "installPath": "/Users/kelvin/.claude/plugins/cache/claude-plugins-official/claude-md-management/1.0.0",
+        "version": "1.0.0",
+        "installedAt": "2026-09-14T14:38:31.459Z",
+        "lastUpdated": "2026-09-14T14:38:31.459Z"
+      }
+    ],
+    "security-guidance@claude-plugins-official": [
+      {
+        "scope": "user",
+        "installPath": "/Users/kelvin/.claude/plugins/cache/claude-plugins-official/security-guidance/2.0.9",
+        "version": "2.0.9",
+        "installedAt": "2026-09-14T14:38:33.755Z",
+        "lastUpdated": "2026-10-03T04:44:47.432Z",
+        "gitCommitSha": "d182ca456ca09d31d139f7d3818d1d333b103cce"
+      }
+    ],
+    "typescript-lsp@claude-plugins-official": [
+      {
+        "scope": "user",
+        "installPath": "/Users/kelvin/.claude/plugins/cache/claude-plugins-official/typescript-lsp/1.0.0",
+        "version": "1.0.0",
+        "installedAt": "2026-09-14T14:38:33.783Z",
+        "lastUpdated": "2026-09-14T14:38:33.783Z"
+      }
+    ],
+    "commit-commands@claude-plugins-official": [
+      {
+        "scope": "user",
+        "installPath": "/Users/kelvin/.claude/plugins/cache/claude-plugins-official/commit-commands/d182ca456ca0",
+        "version": "d182ca456ca0",
+        "installedAt": "2026-09-14T14:38:33.884Z",
+        "lastUpdated": "2026-10-03T04:44:47.440Z",
+        "gitCommitSha": "d182ca456ca09d31d139f7d3818d1d333b103cce"
+      }
+    ],
+    "pyright-lsp@claude-plugins-official": [
+      {
+        "scope": "user",
+        "installPath": "/Users/kelvin/.claude/plugins/cache/claude-plugins-official/pyright-lsp/1.0.0",
+        "version": "1.0.0",
+        "installedAt": "2026-09-14T14:38:35.819Z",
+        "lastUpdated": "2026-09-14T14:38:35.819Z"
+      }
+    ],
+    "mattpocock-skills@claude-plugins-official": [
+      {
+        "scope": "user",
+        "installPath": "/Users/kelvin/.claude/plugins/cache/claude-plugins-official/mattpocock-skills/1.2.3",
+        "version": "1.2.3",
+        "installedAt": "2026-09-21T15:31:11.397Z",
+        "lastUpdated": "2026-09-21T15:31:11.397Z",
+        "gitCommitSha": "959a8e9f1edc3adbe2f7e3054bb6fbefa6696260"
+      }
+    ],
+    "token-weather@claude-code-playground-mods": [
+      {
+        "scope": "user",
+        "installPath": "/Users/kelvin/.claude/plugins/cache/claude-code-playground-mods/token-weather/0.1.0",
+        "version": "0.1.0",
+        "installedAt": "2026-10-03T13:57:53.360Z",
+        "lastUpdated": "2026-10-03T13:57:53.360Z"
+      }
+    ],
+    "blast-radius@claude-code-playground-mods": [
+      {
+        "scope": "user",
+        "installPath": "/Users/kelvin/.claude/plugins/cache/claude-code-playground-mods/blast-radius/0.1.0",
+        "version": "0.1.0",
+        "installedAt": "2026-10-04T03:32:13.667Z",
+        "lastUpdated": "2026-10-04T03:32:13.667Z"
+      }
+    ]
+  }
+}

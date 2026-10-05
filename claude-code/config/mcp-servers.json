@@ -1,0 +1,10 @@
+{
+  "user": {
+    "gh-mcp": {
+      "type": "http",
+      "url": "https://api.githubcopilot.com/mcp/",
+      "headersHelper": "/Users/kelvin/.claude/github-mcp-headers.sh"
+    }
+  },
+  "projects": {}
+}
