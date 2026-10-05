@@ -41,9 +41,21 @@ done
 cp "$SRC/plugins/installed_plugins.json" "$SRC/plugins/known_marketplaces.json" "$C/plugins/" 2>/dev/null || true
 
 # MCP servers: only the mcpServers keys from ~/.claude.json, never the whole file.
-# Values under "env" and "headers" are redacted, because they often hold tokens.
+# Places that often hold tokens are redacted: "env" and "headers" values,
+# URL query strings, and "args" values after (or attached to) a credential-like flag.
 python3 - "$HOME/.claude.json" "$C/mcp-servers.json" <<'PY'
-import json, sys
+import json, re, sys
+SECRET = re.compile(r"key|token|secret|password|auth|credential", re.I)
+def clean_args(args):
+    out, redact_next = [], False
+    for a in args:
+        if redact_next:
+            out.append("<REDACTED>"); redact_next = False
+        elif a.startswith("-") and "=" in a and SECRET.search(a.split("=", 1)[0]):
+            out.append(a.split("=", 1)[0] + "=<REDACTED>")
+        else:
+            out.append(a); redact_next = a.startswith("-") and bool(SECRET.search(a))
+    return out
 def clean(servers):
     out = {}
     for name, cfg in servers.items():
@@ -51,6 +63,10 @@ def clean(servers):
         for k in ("env", "headers"):
             if isinstance(cfg.get(k), dict):
                 cfg[k] = {key: "<REDACTED>" for key in cfg[k]}
+        if isinstance(cfg.get("url"), str) and "?" in cfg["url"]:
+            cfg["url"] = cfg["url"].split("?", 1)[0] + "?<REDACTED>"
+        if isinstance(cfg.get("args"), list):
+            cfg["args"] = clean_args([str(a) for a in cfg["args"]])
         out[name] = cfg
     return out
 d = json.load(open(sys.argv[1]))
