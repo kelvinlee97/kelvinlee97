@@ -1,0 +1,19 @@
+{
+  "claude-plugins-official": {
+    "source": {
+      "source": "github",
+      "repo": "anthropics/claude-plugins-official"
+    },
+    "installLocation": "/Users/kelvin/.claude/plugins/marketplaces/claude-plugins-official",
+    "lastUpdated": "2026-10-05T07:56:48.800Z",
+    "autoUpdate": true
+  },
+  "claude-code-playground-mods": {
+    "source": {
+      "source": "directory",
+      "path": "/Users/kelvin/code/claude-code-playground/claude-code/mods"
+    },
+    "installLocation": "/Users/kelvin/code/claude-code-playground/claude-code/mods",
+    "lastUpdated": "2026-10-04T03:32:24.642Z"
+  }
+}
