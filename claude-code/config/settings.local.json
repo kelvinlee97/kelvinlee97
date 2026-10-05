@@ -1,6 +1,5 @@
 {
   "skillOverrides": {
     "anthropic-skills:google-workspace": "off"
-  },
-  "outputStyle": "Visual Bilingual"
+  }
 }

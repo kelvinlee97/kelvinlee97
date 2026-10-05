@@ -25,10 +25,7 @@
     "defaultMode": "auto"
   },
   "skillOverrides": {
-    "algorithmic-art": "off",
-    "slack-gif-creator": "off",
-    "weread-skills": "name-only",
-    "webapp-testing": "off"
+    "weread-skills": "name-only"
   },
   "worktree": {
     "baseRef": "fresh"
@@ -47,7 +44,6 @@
     "commit-commands@claude-plugins-official": true,
     "pyright-lsp@claude-plugins-official": true,
     "mattpocock-skills@claude-plugins-official": true,
-    "token-weather@claude-code-playground-mods": false,
     "blast-radius@claude-code-playground-mods": true,
     "cc-plugin-you-should-know@builtin": true
   },
