@@ -82,23 +82,20 @@ git clone https://github.com/kelvinlee97/kelvinlee97 ~/code/kelvinlee97
 
 ## Shell setup
 
-Add these lines to `~/.zshrc`. Both read secrets at shell start, so no token is stored on disk.
+Add this line to `~/.zshrc`. It reads the key from the macOS keychain at shell start, so no key is stored on disk.
 
 ```bash
-# GitHub MCP server (github plugin) reads this header var.
-if [ -z "${GITHUB_PERSONAL_ACCESS_TOKEN:-}" ] && command -v gh >/dev/null 2>&1; then
-  export GITHUB_PERSONAL_ACCESS_TOKEN="$(gh auth token 2>/dev/null)"
-fi
-
 # weread-skills API key from the macOS keychain
 WEREAD_API_KEY="$(security find-generic-password -a "$USER" -s weread -w 2>/dev/null)"
 ```
+
+`gh-mcp` does not need a shell variable. `github-mcp-headers.sh` reads the token from the `gh` keyring when Claude Code connects.
 
 ## Dependencies
 
 | Tool | Used by |
 |---|---|
-| `gh` (signed in) | `github-mcp-headers.sh`, shell setup, `ci-automerge` skill |
+| `gh` (signed in) | `github-mcp-headers.sh`, `ci-automerge` skill |
 | `jq` | `statusline-command.sh` |
 | `python3`, `rsync` | `sync.sh`, `restore.sh` |
 | `node` / `npx` | `skills` CLI |
